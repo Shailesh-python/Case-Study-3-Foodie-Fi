@@ -7,7 +7,7 @@ The following are my solutions to the Case Study 3 Foodie Fie questions in
 <br/>
 <br/>
 Danny has shared with you 2 key datasets for this case study :
-[Data Set](https://github.com/Shailesh-python/Case_Study_3_Pizza_Runner/blob/main/Datasets%20and%20Tables)
+[Data Set](https://github.com/Shailesh-python/Case-Study-3-Foodie-Fi/blob/main/Datasets%20%26%20Tables)
 <br/>
 - `plans`
 - `subscriptions`
