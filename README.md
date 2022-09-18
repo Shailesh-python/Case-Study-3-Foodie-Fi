@@ -23,3 +23,50 @@ Try to keep it as short as possible - you may also want to run some sort of join
 
 ## [Question #1](#case-study-questions)
 > How many customers has Foodie-Fi ever had?
+
+## [Question #2](#case-study-questions)
+> What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value.
+
+## [Question #3](#case-study-questions)
+> What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name.
+
+## [Question #4](#case-study-questions)
+> What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
+
+## [Question #5](#case-study-questions)
+> How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+
+## [Question #6](#case-study-questions)
+> What is the number and percentage of customer plans after their initial free trial?
+
+## [Question #7](#case-study-questions)
+> What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
+
+## [Question #8](#case-study-questions)
+> How many customers have upgraded to an annual plan in 2020?
+
+## [Question #9](#case-study-questions)
+> How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+> 
+## [Question #10](#case-study-questions)
+> Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
+> 
+## [Question #11](#case-study-questions)
+> How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
