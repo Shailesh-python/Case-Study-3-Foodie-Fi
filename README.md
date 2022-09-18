@@ -6,7 +6,7 @@ The following are my solutions to the Case Study 3 Foodie Fie questions in
 [Danny Ma's Serious SQL course](https://www.datawithdanny.com/ "Data With Danny")
 <br/>
 <br/>
-Danny has shared with you 6 key datasets for this case study :
+Danny has shared with you 2 key datasets for this case study :
 [Data Set](https://github.com/Shailesh-python/Case_Study_3_Pizza_Runner/blob/main/Datasets%20and%20Tables)
 <br/>
 - `plans`
