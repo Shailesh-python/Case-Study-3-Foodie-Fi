@@ -45,14 +45,44 @@ INNER JOIN foodie_fi.plans P
 WHERE P.plan_name = 'trial'
 GROUP BY YEAR(S.start_date),Month(S.start_date)
 ```
-| |
-|-----------------|
-|      1000       |
+![image](https://github.com/Shailesh-python/Case-Study-3-Foodie-Fi/blob/main/Question_2.jpg)
+
 ## [Question #3](#case-study-questions)
 > What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name.
+```sql
+SELECT
+	p.plan_id,
+	p.plan_name,
+	COUNT(*) AS [events]
+FROM foodie_fi.subscriptions S
+INNER JOIN foodie_fi.plans P
+	ON S.plan_id = P.plan_id
+WHERE s.start_date >= '2022-12-31'
+	AND P.plan_id <> 0
+GROUP BY P.plan_id, P.plan_name
+```
+No plan!
 
 ## [Question #4](#case-study-questions)
 > What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
+```sql
+WITH CTE AS 
+(
+SELECT
+	SUM(CASE WHEN S.plan_id = 4 THEN 1 ELSE NULL END) AS churned_customers,
+	SUM(CASE WHEN S.plan_id <> 0 THEN 1 ELSE NULL END) AS total_customers
+FROM foodie_fi.subscriptions S
+INNER JOIN foodie_fi.plans P
+	ON S.plan_id = P.plan_id
+)
+	SELECT	
+		cte.churned_customers,
+		CAST(ROUND((100.0 * cte.churned_customers)/cte.total_customers,1) AS DECIMAL(5,1)) AS churned_percent
+	FROM CTE 
+```
+| churned_customers | churned_percent |
+|-------------------|-----------------|
+|      307          |      18.6       |
 
 ## [Question #5](#case-study-questions)
 > How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
