@@ -13,13 +13,7 @@ Danny has shared with you 2 key datasets for this case study :
 - `subscriptions`
 <br/>
 
-## A. Customer Journey
-
-Based off the 8 sample customers provided in the sample from the subscriptions table, write a brief description about each customer’s onboarding journey.
-
-Try to keep it as short as possible - you may also want to run some sort of join to make your explanations a bit easier!
-
-## B. Data Analysis Questions
+## A. Data Analysis Questions
 
 ## [Question #1](#case-study-questions)
 > How many customers has Foodie-Fi ever had?
@@ -105,7 +99,7 @@ INNER JOIN foodie_fi.plans P
 ## [Question #11](#case-study-questions)
 > How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
-## C. Challenge Payment Question
+## B. Challenge Payment Question
 
 The Foodie-Fi team wants you to create a new payments table for the year 2020 that includes amounts paid by each customer in the subscriptions table with the following requirements:
 - monthly payments always occur on the same day of month as the original start_date of any monthly paid plan
@@ -113,7 +107,7 @@ The Foodie-Fi team wants you to create a new payments table for the year 2020 th
 - upgrades from pro monthly to pro annual are paid at the end of the current billing period and also starts at the end of the month period
 - once a customer churns they will no longer make payments
 
-## D. Outside The Box Questions
+## C. Outside The Box Questions
 
 
 
