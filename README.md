@@ -23,10 +23,31 @@ Try to keep it as short as possible - you may also want to run some sort of join
 
 ## [Question #1](#case-study-questions)
 > How many customers has Foodie-Fi ever had?
+```sql
+SELECT
+	COUNT( DISTINCT S.customer_id) AS total_customers
+FROM foodie_fi.subscriptions S
+```
+| total_customers |
+|-----------------|
+|      1000       |
 
 ## [Question #2](#case-study-questions)
 > What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value.
-
+```sql
+SELECT
+	YEAR(S.start_date) as Year_Startdate,
+	Month(S.start_date) as Month_Startdate,
+	COUNT(*) AS trial_customers
+FROM foodie_fi.subscriptions S
+INNER JOIN foodie_fi.plans P
+	ON S.plan_id = P.plan_id
+WHERE P.plan_name = 'trial'
+GROUP BY YEAR(S.start_date),Month(S.start_date)
+```
+| |
+|-----------------|
+|      1000       |
 ## [Question #3](#case-study-questions)
 > What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name.
 
