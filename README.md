@@ -241,6 +241,7 @@ WHERE p.plan_id = 3
 | customers|
 |----------|
 |      0   |
+No customer has downgraded from pro monthly to basic monthly in 2020.
 
 ## B. Challenge Payment Question
 
