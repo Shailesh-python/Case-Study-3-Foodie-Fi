@@ -238,10 +238,10 @@ WHERE p.plan_id = 3
 	AND YEAR(B.start_date) = 2020
 	AND B.start_date >= P.start_date
 ```
+No customer has downgraded from pro monthly to basic monthly in 2020.
 | customers|
 |----------|
 |      0   |
-No customer has downgraded from pro monthly to basic monthly in 2020.
 
 ## B. Challenge Payment Question
 
