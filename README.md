@@ -39,7 +39,7 @@ INNER JOIN foodie_fi.plans P
 WHERE P.plan_name = 'trial'
 GROUP BY YEAR(S.start_date),Month(S.start_date)
 ```
-![image](https://github.com/Shailesh-python/Case-Study-3-Foodie-Fi/blob/main/Question_2.jpg)
+![image](https://user-images.githubusercontent.com/81180156/191241288-a113eba1-fec2-4e02-b2c5-6497a03d5953.png)
 
 ## [Question #3](#case-study-questions)
 > What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name.
