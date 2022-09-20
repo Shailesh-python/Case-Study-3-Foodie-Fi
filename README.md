@@ -193,6 +193,16 @@ ORDER BY plan_id;
 
 ## [Question #8](#case-study-questions)
 > How many customers have upgraded to an annual plan in 2020?
+```SQL
+SELECT 
+  COUNT(DISTINCT customer_id) AS unique_customer
+FROM foodie_fi.subscriptions
+WHERE plan_id = 3
+  AND start_date <= '2020-12-31';
+```
+| unique_customers|
+|-----------------|
+|      195        |
 
 ## [Question #9](#case-study-questions)
 > How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
