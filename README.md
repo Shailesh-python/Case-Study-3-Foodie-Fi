@@ -151,6 +151,45 @@ INNER JOIN foodie_fi.plans P
 
 ## [Question #7](#case-study-questions)
 > What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
+```sql
+-- Retrieve next plan's start date located in the next row based on current row
+;WITH next_plan AS(
+SELECT 
+  customer_id, 
+  plan_id, 
+  start_date,
+  LEAD(start_date, 1) OVER(PARTITION BY customer_id ORDER BY start_date) as next_date
+FROM foodie_fi.subscriptions
+WHERE start_date <= '2020-12-31'
+),
+-- Find customer breakdown with existing plans on or after 31 Dec 2020
+customer_breakdown AS (
+  SELECT 
+    plan_id, 
+    COUNT(DISTINCT customer_id) AS customers
+  FROM next_plan
+  WHERE 
+    (next_date IS NOT NULL AND (start_date < '2020-12-31' 
+      AND next_date > '2020-12-31'))
+    OR (next_date IS NULL AND start_date < '2020-12-31')
+  GROUP BY plan_id)
+
+SELECT plan_id, customers, 
+  ROUND(100 * CAST(customers AS INT)/ (
+    SELECT COUNT(DISTINCT customer_id) 
+    FROM foodie_fi.subscriptions),1) AS percentage
+FROM customer_breakdown
+GROUP BY plan_id, customers
+ORDER BY plan_id;
+```
+| plan_id | customers | percentage |
+|---------|-----------|------------|
+|   0     |19         |           1|
+|   1     |224        |          22|
+|   2     |326        |          32|
+|   3     |195        |          19|
+|   4     |235        |          23|
+
 
 ## [Question #8](#case-study-questions)
 > How many customers have upgraded to an annual plan in 2020?
