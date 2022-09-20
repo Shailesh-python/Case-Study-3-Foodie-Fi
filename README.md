@@ -51,32 +51,40 @@ SELECT
 FROM foodie_fi.subscriptions S
 INNER JOIN foodie_fi.plans P
 	ON S.plan_id = P.plan_id
-WHERE s.start_date >= '2022-12-31'
-	AND P.plan_id <> 0
+WHERE s.start_date >= '2020-12-31'
 GROUP BY P.plan_id, P.plan_name
+ORDER BY P.plan_id
 ```
-No plan!
+| plan_id | plan_name   | events |
+|---------|-------------|--------|
+|   1     |basic monthly|   8    |
+|   2     |pro monthly  |   60   |
+|   3     |pro annual   |   63   |
+|   4     |churn        |   72   |
 
 ## [Question #4](#case-study-questions)
 > What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
 ```sql
-WITH CTE AS 
+WITH CTE AS
 (
 SELECT
-	SUM(CASE WHEN S.plan_id = 4 THEN 1 ELSE NULL END) AS churned_customers,
-	SUM(CASE WHEN S.plan_id <> 0 THEN 1 ELSE NULL END) AS total_customers
+	COUNT(
+	DISTINCT
+	CASE WHEN P.plan_name = 'churn' THEN S.customer_id ELSE NULL END
+	) AS churned_customers,
+	COUNT(DISTINCT S.customer_id) AS total_customers
 FROM foodie_fi.subscriptions S
 INNER JOIN foodie_fi.plans P
 	ON S.plan_id = P.plan_id
 )
-	SELECT	
-		cte.churned_customers,
-		CAST(ROUND((100.0 * cte.churned_customers)/cte.total_customers,1) AS DECIMAL(5,1)) AS churned_percent
-	FROM CTE 
+	SELECT
+		CTE.churned_customers,
+		CAST((100.0 * CTE.churned_customers)/CTE.total_customers AS DECIMAL(5,1)) AS churned_percentage
+	FROM CTE
 ```
 | churned_customers | churned_percent |
 |-------------------|-----------------|
-|      307          |      18.6       |
+|      307          |      30.7       |
 
 ## [Question #5](#case-study-questions)
 > How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
