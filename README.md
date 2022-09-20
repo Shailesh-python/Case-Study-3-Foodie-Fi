@@ -206,7 +206,22 @@ WHERE plan_id = 3
 
 ## [Question #9](#case-study-questions)
 > How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
-> 
+```sql
+SELECT
+	AVG(
+		DATEDIFF(DD,s_start.start_date,s_annual.start_date)
+	) AS avg_days
+FROM foodie_fi.subscriptions s_start
+LEFT JOIN foodie_fi.subscriptions s_annual
+	ON s_start.customer_id = s_annual.customer_id
+WHERE s_annual.plan_id = 3
+	AND s_start.plan_id = 0
+```
+| avg_days |
+|----------|
+|    105   |
+
+
 ## [Question #10](#case-study-questions)
 > Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
 > 
