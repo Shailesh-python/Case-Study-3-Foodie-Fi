@@ -88,9 +88,66 @@ INNER JOIN foodie_fi.plans P
 
 ## [Question #5](#case-study-questions)
 > How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+```sql
+;WITH CTE AS
+(
+SELECT
+	S.customer_id,
+	P.plan_id,
+	P.plan_name,
+	ROW_NUMBER() OVER (PARTITION BY S.customer_id ORDER BY P.plan_id) AS RN
+FROM foodie_fi.subscriptions S
+INNER JOIN foodie_fi.plans P
+	ON S.plan_id = P.plan_id
+)
+	SELECT 
+	    COUNT(DISTINCT CTE.customer_id) as churned_customers,
+	    CAST(
+		  (100.0 * COUNT(DISTINCT CTE.customer_id)/
+		  (SELECT COUNT(DISTINCT SS.customer_id) FROM foodie_fi.subscriptions SS))
+		  AS DECIMAL(5,1)
+		) AS immediatelyChurned_customers
+	FROM CTE 
+	WHERE CTE.plan_id = 4
+		AND CTE.RN = 2
+```
+| churned_customers | immediatleyChurned_percent |
+|-------------------|----------------------------|
+|      92           |      9.2                   |
 
 ## [Question #6](#case-study-questions)
 > What is the number and percentage of customer plans after their initial free trial?
+```sql
+;WITH CTE AS
+(
+SELECT
+	S.customer_id,
+	P.plan_id,
+	P.plan_name,
+	LEAD(S.plan_id, 1) OVER (PARTITION BY S.customer_id ORDER BY P.plan_id ASC) AS next_plan
+FROM foodie_fi.subscriptions S
+INNER JOIN foodie_fi.plans P
+	ON S.plan_id = P.plan_id
+)
+	SELECT 
+		CTE.next_plan,
+	COUNT(DISTINCT CTE.customer_id) as churned_customers,
+	CAST(
+		(100.0 * COUNT(DISTINCT CTE.customer_id)/
+		(SELECT COUNT(DISTINCT SS.customer_id) FROM foodie_fi.subscriptions SS))
+		AS DECIMAL(5,1)
+		) AS immediatelyChurned_customers
+	FROM CTE 
+	WHERE CTE.next_plan IS NOT NULL
+		AND CTE.plan_id = 0
+	GROUP BY CTE.next_plan
+```
+| next_plan | after_trial_Conversions   | after_trial_Conversions_percent |
+|-----------|---------------------------|---------------------------------|
+|   1       |546                        |             54.6                |
+|   2       |325                        |             32.5                |
+|   3       |37                         |              3.7                |
+|   4       |92                         |              9.2                |
 
 ## [Question #7](#case-study-questions)
 > What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
