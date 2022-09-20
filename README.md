@@ -227,6 +227,20 @@ WHERE s_annual.plan_id = 3
 > 
 ## [Question #11](#case-study-questions)
 > How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
+```sql
+SELECT
+	COUNT(DISTINCT B.customer_id) AS Customers
+FROM foodie_fi.subscriptions p
+LEFT JOIN foodie_fi.subscriptions b
+	ON p.customer_id = b.customer_id
+WHERE p.plan_id = 3
+	AND b.plan_id = 2
+	AND YEAR(B.start_date) = 2020
+	AND B.start_date >= P.start_date
+```
+| customers|
+|----------|
+|      0   |
 
 ## B. Challenge Payment Question
 
